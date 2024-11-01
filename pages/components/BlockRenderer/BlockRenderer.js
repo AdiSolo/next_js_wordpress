@@ -1,17 +1,18 @@
-import { Cover } from "../Cover/Cover";
+import Cover from "../Cover";
 
-export const BlockRenderer = ({ blocks }) => {
+const BlockRenderer = ({ blocks = [] }) => {
   return blocks.map((block) => {
     switch (block.name) {
-      case "core/cover": {
+      case "core/cover":
         return (
           <Cover key={block.id} background={block.attributes.url}>
             Cover
           </Cover>
         );
-      }
       default:
         return null;
     }
   });
 };
+
+export default BlockRenderer; // Ensure this is the default export

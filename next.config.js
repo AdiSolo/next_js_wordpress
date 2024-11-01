@@ -2,7 +2,14 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: [process.env.WP_IMAGE_URL],
+    remotePatterns: [
+      {
+        protocol: "https", // Assuming images are served over HTTPS
+        hostname: process.env.WP_IMAGE_URL, // Use the environment variable for the hostname
+        port: "", // Leave empty if not needed
+        pathname: "**", // Allow all paths under the domain
+      },
+    ],
   },
 };
 
