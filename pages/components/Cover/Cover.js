@@ -1,15 +1,16 @@
 import Image from "next/image";
 
-const Cover = ({ children, background }) => {
+export const Cover = ({ children, background }) => {
   return (
-    <div>
+    <div className="min-h-[400px] text-center bg-slate-800 h-[calc(100vh-64px)] relative text-white flex justify-center items-center">
       <Image
         src={background}
         fill
         className="object-cover justify-center align-middle"
         alt="img"
+        priority
       />
-      {children}
+      <div className="absolute font-heading z-10 px-10"> {children}</div>
     </div>
   );
 };
