@@ -33,7 +33,7 @@ const BlockRenderer = ({ blocks = [] }) => {
         return (
           <Cover key={block.id} background={block.attributes.url}>
             <BlockRenderer
-              key={block.innerBlocks.level}
+              key={block.innerBlocks.id}
               blocks={block.innerBlocks}
             />
           </Cover>
