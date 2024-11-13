@@ -2,6 +2,7 @@ import client from "client";
 import { gql } from "@apollo/client";
 import { cleanAndTransformBlocks } from "./cleanAndTransformBlocks";
 import { mapMainMenuItems } from "./mapMainMenuItems";
+
 export const getPageStaticProps = async (context) => {
   const uri = context.params?.slug
     ? `${context.params.slug.join("/")}`
@@ -15,6 +16,17 @@ export const getPageStaticProps = async (context) => {
             id
             title
             blocks(postTemplate: false)
+            seo {
+              fullHead
+            }
+          }
+          ... on Property {
+            id
+            title
+            blocks(postTemplate: false)
+            seo {
+              fullHead
+            }
           }
         }
         mainMenu {
@@ -50,13 +62,16 @@ export const getPageStaticProps = async (context) => {
       }
     `,
     variables: { uri },
+    fetchPolicy: "no-cache",
   });
   return {
     props: {
       mainMenuItems: mapMainMenuItems(
         data?.mainMenu?.aCFMainMenu?.menuItemsGroup?.menuItems || [],
       ),
-      blocks: cleanAndTransformBlocks(data.nodeByUri.blocks),
+      blocks: cleanAndTransformBlocks(data.nodeByUri?.blocks),
+      seo: data.nodeByUri?.seo || [],
+
       callToActionLabel:
         data?.mainMenu?.aCFMainMenu.callToActionButton.callToActionLabel,
       callToActionDestination:

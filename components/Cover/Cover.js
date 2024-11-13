@@ -6,7 +6,7 @@ export const Cover = ({ children, background }) => {
       <Image
         src={background}
         fill
-        className="object-cover justify-center align-middle"
+        className="object-cover justify-center align-middle mix-blend-soft-light"
         alt="img"
         priority
       />

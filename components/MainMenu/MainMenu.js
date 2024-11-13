@@ -2,7 +2,6 @@ import Link from "next/link";
 import ButtonLink from "../ButtonLink";
 
 const MainMenu = ({ items, ctaLabel, ctaDestination }) => {
-  console.log("Props main menu", items);
   return (
     <div className="bg-slate-800 text-white px-5 h-[64px] flex items-center justify-between  sticky top-0 z-20 ">
       <div className="py-5 text-pink-600">Logo</div>

@@ -1,6 +1,7 @@
 import MainMenu from "../MainMenu";
 import BlockRenderer from "../BlockRenderer";
 const Page = (props) => {
+  console.log("Props", props);
   return (
     <div>
       <MainMenu

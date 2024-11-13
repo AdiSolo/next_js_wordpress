@@ -1,7 +1,7 @@
 import client from "client";
 import { gql } from "@apollo/client";
 import { getPageStaticProps } from "utils/getPageStaticProps";
-import Page from "./components/Page ";
+import Page from "../components/Page ";
 
 export default Page;
 export const getStaticProps = getPageStaticProps;
@@ -14,12 +14,19 @@ export const getStaticPaths = async () => {
             uri
           }
         }
+        properties {
+          nodes {
+            title
+            uri
+          }
+        }
       }
     `,
+    fetchPolicy: "no-cache",
   });
 
   return {
-    paths: data.pages.nodes
+    paths: [...data.pages.nodes, ...data.properties.nodes]
       .filter((page) => page.uri !== "/")
       .map((page) => ({
         params: {
