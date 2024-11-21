@@ -18,7 +18,7 @@ const MainMenu = ({ items, ctaLabel, ctaDestination }) => {
               </Link>
             </div>
             {!!item.subMenuItems?.length && (
-              <div className="group-hover:block hidden bg-slate-800 text-right absolute right-0 top-full -mt-3 flex">
+              <div className="group-hover:block hidden bg-slate-800 text-left absolute right-0 top-full -mt-3 flex">
                 {item.subMenuItems.map((subMenuItem) => (
                   <Link
                     key={subMenuItem.id}
