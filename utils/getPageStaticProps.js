@@ -70,7 +70,6 @@ export const getPageStaticProps = async (context) => {
         data?.mainMenu?.aCFMainMenu?.menuItemsGroup?.menuItems || [],
       ),
       blocks: cleanAndTransformBlocks(data.nodeByUri?.blocks),
-      seo: data.nodeByUri?.seo || [],
 
       callToActionLabel:
         data?.mainMenu?.aCFMainMenu.callToActionButton.callToActionLabel,

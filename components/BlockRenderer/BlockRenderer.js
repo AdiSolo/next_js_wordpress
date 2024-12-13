@@ -7,10 +7,20 @@ import Columns from "../Columns";
 import Column from "../Column";
 import Image from "next/image";
 import PropertySearch from "../PropertySearch";
+import { Gallery } from "components/Gallery";
+import TickItem from "components/TickItem/TickItem";
 
 const BlockRenderer = ({ blocks = [] }) => {
   return blocks.map((block) => {
     switch (block.name) {
+      case "acf/tickitem": {
+        console.log("Tick", block);
+        return (
+          <TickItem key={block.id}>
+            <BlockRenderer blocks={block.innerBlocks} />
+          </TickItem>
+        );
+      }
       case "acf/ctabutton": {
         return (
           <CallToActionButton
@@ -68,23 +78,42 @@ const BlockRenderer = ({ blocks = [] }) => {
         );
       }
       case "core/columns": {
+        // console.log("columns", block);
+
         return (
           <Columns
             key={block.id}
             isStackONMobile={block.attributes.isStackedOnMobile}
             block={block}
+            textColor={
+              theme[block.attributes.textColor] ||
+              block.attributes.style?.color.text
+            }
+            backgroundColor={
+              theme[block.attributes?.backgroundColor] ||
+              block.attributes.style?.color.background
+            }
           >
             <BlockRenderer key={block.id} blocks={block.innerBlocks} />
           </Columns>
         );
       }
       case "core/column": {
+        console.log("column", block);
+
         return (
-          <Column key={block.id} width={block.attributes?.width || ""}>
-            <BlockRenderer
-              key={block.innerBlocks.id}
-              blocks={block.innerBlocks}
-            />
+          <Column
+            key={block.id}
+            width={block.attributes?.width || ""}
+            textColor={
+              theme[block.attributes?.textColor] || block.attributes?.textColor
+            }
+            backgroundColor={
+              theme[block.attributes?.backgroundColor] ||
+              block.attributes?.backgroundColor
+            }
+          >
+            <BlockRenderer blocks={block.innerBlocks} />
           </Column>
         );
       }
@@ -104,6 +133,17 @@ const BlockRenderer = ({ blocks = [] }) => {
             className="rounded-md"
             alt={block.attributes.alt || ""}
             priority
+          />
+        );
+      }
+      case "core/gallery": {
+        console.log(block.attributes.linkTo);
+        return (
+          <Gallery
+            key={block.id}
+            columns={block.attributes.columns || 3}
+            cropImages={block.attributes.imageCrop}
+            items={block.innerBlocks}
           />
         );
       }
