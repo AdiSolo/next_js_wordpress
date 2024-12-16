@@ -1,7 +1,8 @@
+"use client";
 import { useEffect, useState } from "react";
 import Results from "./Results";
 import { Pagination } from "./Pagination";
-import { useRouter } from "next/router";
+import { useRouter, usePathname } from "next/navigation";
 import queryString from "query-string";
 import { Filters } from "./Filters";
 const PropertySearch = () => {
@@ -9,6 +10,7 @@ const PropertySearch = () => {
   const [totalResults, setTotalResults] = useState([]);
   const pageSize = 3;
   const router = useRouter();
+  const pathname = usePathname();
   const search = async () => {
     const { page, petFriendly, hasParking, minPrice, maxPrice } =
       queryString.parse(window.location.search);
@@ -38,14 +40,9 @@ const PropertySearch = () => {
       window.location.search,
     );
 
-    await router.push(
-      `${router.query.slug.join("/")}/?page=${pageNumber}&petFriendly=${petFriendly === "true"}&hasParking=${hasParking === "true"}&minPrice=${!!minPrice}&maxPrice=${!!maxPrice}`,
-      null,
-      {
-        shallow: true,
-      },
+    router.push(
+      `${pathname}/?page=${pageNumber}&petFriendly=${petFriendly === "true"}&hasParking=${hasParking === "true"}&minPrice=${!!minPrice}&maxPrice=${!!maxPrice}`,
     );
-    search();
   };
   useEffect(() => {
     search();
@@ -56,14 +53,9 @@ const PropertySearch = () => {
     minPrice,
     maxPrice,
   }) => {
-    await router.push(
-      `${router.query.slug.join("/")}/?page=1&petFriendly=${petFriendly}&hasParking=${hasParking}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
-      null,
-      {
-        shallow: true,
-      },
+    router.push(
+      `${pathname}/?page=1&petFriendly=${petFriendly}&hasParking=${hasParking}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
     );
-    search();
     return null;
   };
 

@@ -14,7 +14,6 @@ const BlockRenderer = ({ blocks = [] }) => {
   return blocks.map((block) => {
     switch (block.name) {
       case "acf/tickitem": {
-        console.log("Tick", block);
         return (
           <TickItem key={block.id}>
             <BlockRenderer blocks={block.innerBlocks} />
@@ -99,8 +98,6 @@ const BlockRenderer = ({ blocks = [] }) => {
         );
       }
       case "core/column": {
-        console.log("column", block);
-
         return (
           <Column
             key={block.id}

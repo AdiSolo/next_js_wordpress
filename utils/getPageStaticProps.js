@@ -66,10 +66,10 @@ export const getPageStaticProps = async (context) => {
   });
   return {
     props: {
+      blocks: cleanAndTransformBlocks(data.nodeByUri?.blocks),
       mainMenuItems: mapMainMenuItems(
         data?.mainMenu?.aCFMainMenu?.menuItemsGroup?.menuItems || [],
       ),
-      blocks: cleanAndTransformBlocks(data.nodeByUri?.blocks),
 
       callToActionLabel:
         data?.mainMenu?.aCFMainMenu.callToActionButton.callToActionLabel,
